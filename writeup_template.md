@@ -19,7 +19,10 @@ The goals / steps of this project are the following:
 [image4]: ./examples/warped_straight_lines.jpg "Warp Example"
 [image5]: ./examples/window_based.png "Fit Visual"
 [image6]: ./examples/poly_based.png "Output"
-[video1]: ./project_video.mp4 "Video"
+[image7]: ./examples/example_output.jpg "Result"
+[video1]: .output_videos/project_video.mp4 "Video1"
+[video2]: .output_videos/challenge_video.mp4 "Video2"
+[video3]: .output_videos/harder_challenge_video.mp4 "Video3"
 
 ### Camera Calibration
 
@@ -68,24 +71,25 @@ The goals / steps of this project are the following:
 * This helps to reduce computational overheads.
 ![alt text][image6]
 
-#### 6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
-
-I implemented this step in lines # through # in my code in `yet_another_file.py` in the function `map_lane()`.  Here is an example of my result on a test image:
-
-![alt text][image6]
+#### 6. Result
+* Finally, a green color region is plotted between the tracked lanes as shown in the image below.
+![alt text][image7]
 
 ---
 
 ### Pipeline (video)
 
-#### 1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
-
-Here's a [link to my video result](./project_video.mp4)
+The result on a real data can be seen [here](https://www.youtube.com/watch?v=jf5B_ihmM-k)
+[video1]
+[video2]
+[video3]
 
 ---
 
 ### Discussion
 
-#### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
+#### 1. Challenges
 
-Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.  
+* The road lanes in challenging video are not successfully tracked because of the following reasons.
+  * Changing lightneing conditions
+  * More number of vertical edges in the images make it difficult to detect the exact position of the lanes.
