@@ -17,7 +17,7 @@ The goals / steps of this project are the following:
 [image2]: ./test_images/test1.jpg "Road Transformed"
 [image3]: ./examples/binay_image_combined.png "Binary Example"
 [image4]: ./examples/warped_straight_lines.jpg "Warp Example"
-[image5]: ./examples/color_fit_lines.jpg "Fit Visual"
+[image5]: ./examples/window_based.png "Fit Visual"
 [image6]: ./examples/example_output.jpg "Output"
 [video1]: ./project_video.mp4 "Video"
 
@@ -49,14 +49,15 @@ The goals / steps of this project are the following:
 ![alt text][image3]
 
 #### 3. Perspective Transformation (Birds-Eye view)
-* The opencv function 'cv2.getPerspectiveTransform(src, dst)' is used to transform the input image to see how it will look from the birds eye view.
-* A parameter in the function 'src' contains four points lying on the road as shown in the image below on the left. Another parameter 'dst' contains four points where the 'src' points to be transformed. 
+* The opencv function `cv2.getPerspectiveTransform(src, dst)` is used to transform the input image to see how it will look from the birds eye view.
+* A parameter in the function `src` contains four points lying on the road as shown in the image below on the left (Four corner points of the red rectangular box drawn on the road). Another parameter `dst` contains four points where the `src` points to be transformed. 
 
 ![alt text][image4]
 
-#### 4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
+#### 4. Implement Sliding Windows and Fit a Polynomial
 
-Then I did some other stuff and fit my lane lines with a 2nd order polynomial kinda like this:
+* A histogram is calculated on the lower part of the input image. The left peak in the histogram represents a pixel location of the left lane and a peak on the right side represents a pixel location of the right lane.
+* With refernce to these peaks the location of both lanes are tracked in the complete image as shown below
 
 ![alt text][image5]
 
