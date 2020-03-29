@@ -80,9 +80,9 @@ The goals / steps of this project are the following:
 ### Pipeline (video)
 
 The result on a real data can be seen [here](https://www.youtube.com/watch?v=jf5B_ihmM-k)
-[video1]
-[video2]
-[video3]
+* Video 1 [video1]
+* Video 2 [video2]
+* Video 3 [video3]
 
 ---
 
