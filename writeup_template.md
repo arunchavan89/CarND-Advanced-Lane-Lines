@@ -15,7 +15,7 @@ The goals / steps of this project are the following:
 
 [image1]: ./examples/undistort_output.png "Undistorted"
 [image2]: ./test_images/test1.jpg "Road Transformed"
-[image3]: ./examples/binary_image_combined.png "Binary Example"
+[image3]: ./examples/binay_image_combined.png "Binary Example"
 [image4]: ./examples/warped_straight_lines.jpg "Warp Example"
 [image5]: ./examples/color_fit_lines.jpg "Fit Visual"
 [image6]: ./examples/example_output.jpg "Output"
@@ -44,7 +44,8 @@ The goals / steps of this project are the following:
 * Sobel filter is applied in x-direction onto the L color channel.
 * The x-gradient image is further processed to compute its absolute values and normalized values.
 * The S- channel is filtered using threshold values.
-* Both S and L channels are fused together after thresholding to create a binary image. 
+* Both S and L channels are fused together after thresholding to create a binary image.
+
 ![alt text][image3]
 
 #### 3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
