@@ -1,19 +1,4 @@
-## Advanced Lane Finding
-[![Udacity - Self-Driving Car NanoDegree](https://s3.amazonaws.com/udacity-sdc/github/shield-carnd.svg)](http://www.udacity.com/drive)
-![Lanes Image](./examples/example_output.jpg)
-
-In this project, your goal is to write a software pipeline to identify the lane boundaries in a video, but the main output or product we want you to create is a detailed writeup of the project.  Check out the [writeup template](https://github.com/udacity/CarND-Advanced-Lane-Lines/blob/master/writeup_template.md) for this project and use it as a starting point for creating your own writeup.  
-
-Creating a great writeup:
----
-A great writeup should include the rubric points as well as your description of how you addressed each point.  You should include a detailed description of the code used in each step (with line-number references and code snippets where necessary), and links to other supporting documents or external references.  You should include images in your writeup to demonstrate how your code works with examples.  
-
-All that said, please be concise!  We're not looking for you to write a book here, just a brief description of how you passed each rubric point, and references to the relevant code :). 
-
-You're not required to use markdown for your writeup.  If you use another method please just submit a pdf of your writeup.
-
-The Project
----
+**Advanced Lane Finding Project**
 
 The goals / steps of this project are the following:
 
@@ -26,14 +11,85 @@ The goals / steps of this project are the following:
 * Warp the detected lane boundaries back onto the original image.
 * Output visual display of the lane boundaries and numerical estimation of lane curvature and vehicle position.
 
-The images for camera calibration are stored in the folder called `camera_cal`.  The images in `test_images` are for testing your pipeline on single frames.  If you want to extract more test images from the videos, you can simply use an image writing method like `cv2.imwrite()`, i.e., you can read the video in frame by frame as usual, and for frames you want to save for later you can write to an image file.  
+[//]: # (Image References)
 
-To help the reviewer examine your work, please save examples of the output from each stage of your pipeline in the folder called `output_images`, and include a description in your writeup for the project of what each image shows.    The video called `project_video.mp4` is the video your pipeline should work well on.  
+[image1]: ./examples/undistort_output.png "Undistorted"
+[image2]: ./test_images/test1.jpg "Road Transformed"
+[image3]: ./examples/binay_image_combined.png "Binary Example"
+[image4]: ./examples/warped_straight_lines.jpg "Warp Example"
+[image5]: ./examples/window_based.png "Fit Visual"
+[image6]: ./examples/poly_based.png "Output"
+[image7]: ./examples/example_output.jpg "Result"
+[video1]: .output_videos/project_video.mp4 "Video1"
+[video2]: .output_videos/challenge_video.mp4 "Video2"
+[video3]: .output_videos/harder_challenge_video.mp4 "Video3"
 
-The `challenge_video.mp4` video is an extra (and optional) challenge for you if you want to test your pipeline under somewhat trickier conditions.  The `harder_challenge.mp4` video is another optional challenge and is brutal!
+### Camera Calibration
 
-If you're feeling ambitious (again, totally optional though), don't stop there!  We encourage you to go out and take video of your own, calibrate your camera and show us how you would implement this project from scratch!
+#### 1. Computation of the camera matrix and distortion coefficients.
 
-## How to write a README
-A well written README file can enhance your project and portfolio.  Develop your abilities to create professional README files by completing [this free course](https://www.udacity.com/course/writing-readmes--ud777).
+* Find chess board corners within a chessboard of size (9, 6) by using the opencv function `cv2.findChessboardCorners()`
+* Make a list of objpoints, imgpoints in such a way that objpoints are real world coordinates (x, y, Z=0) of the chess board corners and imgpoints are their image coordinates respectively. 
+* Use `cv2.calibrateCamera()` function to calibrate the camera. This function returns a camera matrix (mtx) and distortion coefficients (dist). 
+* Use mtx and dist parameters to undistort an input image using `cv2.undistort()` function
+* The following image shows the result of before and after distortion.
+![alt text][image1]
 
+### Pipeline (single images)
+
+#### 1. Distortion-correction of the input image.
+
+* By using the calculated camera matrix and distortion coefficients, the input image is undistorted as below.
+![alt text][image2]
+
+#### 2. Binary image creation
+* The input image is converted from RGB to HLS color space.
+* Sobel filter is applied in x-direction onto the L color channel.
+* The x-gradient image is further processed to compute its absolute values and normalized values.
+* The S- channel is filtered using threshold values.
+* Both S and L channels are fused together after thresholding to create a binary image.
+
+![alt text][image3]
+
+#### 3. Perspective Transformation (Birds-Eye view)
+* The opencv function `cv2.getPerspectiveTransform(src, dst)` is used to transform the input image to see how it will look from the birds eye view.
+* A parameter in the function `src` contains four points lying on the road as shown in the image below on the left (Four corner points of the red rectangular box drawn on the road). Another parameter `dst` contains four points where the `src` points to be transformed. 
+
+![alt text][image4]
+
+#### 4. Implement Sliding Windows and Fit a Polynomial
+
+* A histogram is calculated on the lower part of the input image. The left peak in the histogram represents a pixel location of the left lane and a peak on the right side represents a pixel location of the right lane.
+* With refernce to these peaks the location of both lanes are tracked in the complete image as shown below
+
+![alt text][image5]
+
+#### 5. Use the previous polynomial to skip the sliding window
+* The window based lane search is done only for the first frame.
+* From second frame onwards the lanes are tracked based on polynomial computated in the first frame.
+* A new region of interest is considered which is close to the last polynomial curve with a margin of +/- 100 pixels.
+* This helps to reduce computational overheads.
+![alt text][image6]
+
+#### 6. Result
+* Finally, a green color region is plotted between the tracked lanes as shown in the image below.
+![alt text][image7]
+
+---
+
+### Pipeline (video)
+
+The result on a real data can be seen [here](https://www.youtube.com/watch?v=jf5B_ihmM-k)
+* Video 1 [video1]
+* Video 2 [video2]
+* Video 3 [video3]
+
+---
+
+### Discussion
+
+#### 1. Challenges
+
+* The road lanes in challenging video are not successfully tracked because of the following reasons.
+  * Changing lightneing conditions
+  * More number of vertical edges in the images make it difficult to detect the exact position of the lanes.
