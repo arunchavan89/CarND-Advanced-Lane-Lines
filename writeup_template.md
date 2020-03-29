@@ -18,7 +18,7 @@ The goals / steps of this project are the following:
 [image3]: ./examples/binay_image_combined.png "Binary Example"
 [image4]: ./examples/warped_straight_lines.jpg "Warp Example"
 [image5]: ./examples/window_based.png "Fit Visual"
-[image6]: ./examples/example_output.jpg "Output"
+[image6]: ./examples/poly_based.png"Output"
 [video1]: ./project_video.mp4 "Video"
 
 ### Camera Calibration
@@ -61,9 +61,13 @@ The goals / steps of this project are the following:
 
 ![alt text][image5]
 
-#### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
+#### 5. Use the previous polynomial to skip the sliding window
+* The window based lane search is done only for the first frame.
+* From second frame onwards the lanes are tracked based on polynomial computated in the first frame.
+* A new region of interest is considered which is close to the last polynomial curve with a margin of +/- 100 pixels.
+* This helps to reduce computational overheads.
 
-I did this in lines # through # in my code in `my_other_file.py`
+![alt text][image6]
 
 #### 6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
 
