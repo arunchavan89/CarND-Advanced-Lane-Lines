@@ -15,7 +15,7 @@ The goals / steps of this project are the following:
 
 [image1]: ./examples/undistort_output.png "Undistorted"
 [image2]: ./test_images/test1.jpg "Road Transformed"
-[image3]: ./examples/binary_combo_example.jpg "Binary Example"
+[image3]: ./examples/binary_image_combined.png "Binary Example"
 [image4]: ./examples/warped_straight_lines.jpg "Warp Example"
 [image5]: ./examples/color_fit_lines.jpg "Fit Visual"
 [image6]: ./examples/example_output.jpg "Output"
@@ -34,15 +34,17 @@ The goals / steps of this project are the following:
 
 ### Pipeline (single images)
 
-#### 1. Provide an example of a distortion-corrected image.
+#### 1. Distortion-correction of the input image.
 
-To demonstrate this step, I will describe how I apply the distortion correction to one of the test images like this one:
+* By using the calculated camera matrix and distortion coefficients, the input image is undistorted as below.
 ![alt text][image2]
 
-#### 2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
-
-I used a combination of color and gradient thresholds to generate a binary image (thresholding steps at lines # through # in `another_file.py`).  Here's an example of my output for this step.  (note: this is not actually from one of the test images)
-
+#### 2. Binary image creation
+* The input image is converted from RGB to HLS color space.
+* Sobel filter is applied in x-direction onto the L color channel.
+* The x-gradient image is further processed to compute its absolute values and normalized values.
+* The S- channel is filtered using threshold values.
+* Both S and L channels are fused together after thresholding to create a binary image. 
 ![alt text][image3]
 
 #### 3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
