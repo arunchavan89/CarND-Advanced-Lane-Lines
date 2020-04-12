@@ -84,6 +84,7 @@ The result on a real data can be seen [here](https://www.youtube.com/watch?v=jf5
 * Video 2 [video2]
 * Video 3 [video3]
 
+![](output_videos/advanced_lane_detection.gif)
 ---
 
 ### Discussion
