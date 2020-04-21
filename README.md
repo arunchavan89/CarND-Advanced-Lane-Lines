@@ -1,4 +1,6 @@
-**Advanced Lane Finding Project**
+# Advanced Lane Finding Project**
+
+![](output_videos/advanced_lane_detection.gif)
 
 The goals / steps of this project are the following:
 
@@ -84,7 +86,6 @@ The result on a real data can be seen [here](https://www.youtube.com/watch?v=jf5
 * Video 2 [video2]
 * Video 3 [video3]
 
-![](output_videos/advanced_lane_detection.gif)
 ---
 
 ### Discussion
